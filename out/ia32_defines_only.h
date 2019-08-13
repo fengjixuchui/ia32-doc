@@ -4652,9 +4652,9 @@ typedef union {
 #define PDE_2MB_64_IGNORED_1                                         0xE00
     uint64_t pat                                                     : 1;
 #define PDE_2MB_64_PAT                                               0x1000
-    uint64_t reserved_1                                              : 17;
-    uint64_t page_frame_number                                       : 18;
-#define PDE_2MB_64_PAGE_FRAME_NUMBER                                 0xFFFFC0000000
+    uint64_t reserved_1                                              : 8;
+    uint64_t page_frame_number                                       : 27;
+#define PDE_2MB_64_PAGE_FRAME_NUMBER                                 0xFFFFFFE00000
     uint64_t reserved_2                                              : 4;
     uint64_t ignored_2                                               : 7;
 #define PDE_2MB_64_IGNORED_2                                         0x7F0000000000000
@@ -5527,8 +5527,8 @@ typedef struct {
 #define IO_BITMAP_A_MAX                                              0x00007FFF
 #define IO_BITMAP_B_MIN                                              0x00008000
 #define IO_BITMAP_B_MAX                                              0x0000FFFF
-  uint8_t io_a[512];
-  uint8_t io_b[512];
+  uint8_t io_a[4096];
+  uint8_t io_b[4096];
 } vmx_io_bitmap;
 
 typedef struct {
@@ -5536,10 +5536,10 @@ typedef struct {
 #define MSR_ID_LOW_MAX                                               0x00001FFF
 #define MSR_ID_HIGH_MIN                                              0xC0000000
 #define MSR_ID_HIGH_MAX                                              0xC0001FFF
-  uint8_t rdmsr_low[128];
-  uint8_t rdmsr_high[128];
-  uint8_t wrmsr_low[128];
-  uint8_t wrmsr_high[128];
+  uint8_t rdmsr_low[1024];
+  uint8_t rdmsr_high[1024];
+  uint8_t wrmsr_low[1024];
+  uint8_t wrmsr_high[1024];
 } vmx_msr_bitmap;
 
 /**
